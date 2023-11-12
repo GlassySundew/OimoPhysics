@@ -123,7 +123,12 @@ class Island {
 			// the rigid body is awake
 			if (rb._type == RigidBodyType._DYNAMIC) {
 				// damping
-				var linScale:Float = fastInvExp(dt * rb._linearDamping);
+				var dampedLinScale : IVec3;
+				M.vec3_scale( dampedLinScale, rb._linearDamping, dt );
+				var dampedLinScaleX = fastInvExp( M.vec3_get( dampedLinScale, 0 ) );
+				var dampedLinScaleY = fastInvExp( M.vec3_get( dampedLinScale, 1 ) );
+				var dampedLinScaleZ = fastInvExp( M.vec3_get( dampedLinScale, 2 ) );
+
 				var angScale:Float = fastInvExp(dt * rb._angularDamping);
 
 				// compute accelerations
@@ -135,7 +140,13 @@ class Island {
 
 				// update velocity
 				M.vec3_addRhsScaled(rb._vel, rb._vel, linAcc, dt);
-				M.vec3_scale(rb._vel, rb._vel, linScale);
+				M.vec3_set(
+					rb._vel,
+					dampedLinScaleX * M.vec3_get( rb._vel, 0 ),
+					dampedLinScaleY * M.vec3_get( rb._vel, 1 ),
+					dampedLinScaleZ * M.vec3_get( rb._vel, 2 )
+				);
+
 				M.vec3_addRhsScaled(rb._angVel, rb._angVel, angAcc, dt);
 				M.vec3_scale(rb._angVel, rb._angVel, angScale);
 			}
@@ -180,7 +191,12 @@ class Island {
 			// apply forces
 			if (rb._type == RigidBodyType._DYNAMIC) {
 				// damping
-				var linScale:Float = fastInvExp(dt * rb._linearDamping);
+				var dampedLinScale:IVec3;
+				M.vec3_scale( dampedLinScale, rb._linearDamping, dt );
+				var dampedLinScaleX = fastInvExp( M.vec3_get( dampedLinScale, 0 ) );
+				var dampedLinScaleY = fastInvExp( M.vec3_get( dampedLinScale, 1 ) );
+				var dampedLinScaleZ = fastInvExp( M.vec3_get( dampedLinScale, 2 ) );
+
 				var angScale:Float = fastInvExp(dt * rb._angularDamping);
 
 				// compute accelerations
@@ -192,7 +208,12 @@ class Island {
 
 				// update velocity
 				M.vec3_addRhsScaled(rb._vel, rb._vel, linAcc, dt);
-				M.vec3_scale(rb._vel, rb._vel, linScale);
+				M.vec3_set(
+					rb._vel,
+					dampedLinScaleX * M.vec3_get( rb._vel, 0 ),
+					dampedLinScaleY * M.vec3_get( rb._vel, 1 ),
+					dampedLinScaleZ * M.vec3_get( rb._vel, 2 )
+				);
 				M.vec3_addRhsScaled(rb._angVel, rb._angVel, angAcc, dt);
 				M.vec3_scale(rb._angVel, rb._angVel, angScale);
 			}

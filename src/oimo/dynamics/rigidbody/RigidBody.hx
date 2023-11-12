@@ -49,7 +49,7 @@ class RigidBody {
 	public var _invLocalInertiaWithoutRotFactor:IMat3;
 	public var _invInertia:IMat3;
 
-	public var _linearDamping:Float;
+	public var _linearDamping:IVec3;
 	public var _angularDamping:Float;
 
 	public var _force:IVec3;
@@ -97,6 +97,7 @@ class RigidBody {
 
 		M.vec3_fromVec3(_vel, config.linearVelocity);
 		M.vec3_fromVec3(_angVel, config.angularVelocity);
+		M.vec3_fromVec3(_linearDamping, config.linearDamping);
 
 		M.vec3_zero(_pseudoVel);
 		M.vec3_zero(_angPseudoVel);
@@ -120,7 +121,6 @@ class RigidBody {
 		M.mat3_zero(_invLocalInertiaWithoutRotFactor);
 		M.mat3_zero(_invInertia);
 
-		_linearDamping = config.linearDamping;
 		_angularDamping = config.angularDamping;
 
 		M.vec3_zero(_force);
@@ -288,7 +288,13 @@ class RigidBody {
 		totalMass = 0;
 
 		var s:Shape = _shapeList;
+		var tempShape = null;
 		M.list_foreach(s, _next, {
+			if ( tempShape == s ) {
+				throw "rigidbody shape looping";
+			}
+			tempShape = s;
+
 			var g:Geometry = s._geom;
 			g._updateMass();
 
@@ -1077,15 +1083,19 @@ class RigidBody {
 	/**
 	 * Returns the linear damping.
 	 */
-	public inline function getLinearDamping():Float {
-		return _linearDamping;
+	public inline function getLinearDamping() : Vec3 {
+		return new Vec3( 
+			M.vec3_get( _linearDamping, 0 ),
+			M.vec3_get( _linearDamping, 1 ),
+			M.vec3_get( _linearDamping, 2 ),
+		);
 	}
 
 	/**
 	 * Sets the linear damping to `damping`.
 	 */
-	public inline function setLinearDamping(damping:Float):Void {
-		_linearDamping = damping;
+	public inline function setLinearDamping( damping : Vec3 ) : Void {
+		M.vec3_set( _linearDamping, damping.x, damping.y, damping.z );
 	}
 
 	/**

@@ -43,7 +43,7 @@ class RigidBodyConfig {
 	 * The damping coefficient of the linear velocity. Set positive values to
 	 * gradually reduce the linear velocity.
 	 */
-	public var linearDamping:Float;
+	public var linearDamping:Vec3;
 
 	/**
 	 * The damping coefficient of the angular velocity. Set positive values to
@@ -61,7 +61,7 @@ class RigidBodyConfig {
 		angularVelocity = new Vec3();
 		type = RigidBodyType._DYNAMIC;
 		autoSleep = true;
-		linearDamping = 0;
+		linearDamping = new Vec3();
 		angularDamping = 0;
 	}
 }
