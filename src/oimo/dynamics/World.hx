@@ -120,7 +120,7 @@ class World {
 			if (Setting.disableSleeping) {
 				var b:RigidBody = _rigidBodyList;
 				M.list_foreach(b, _next, {
-					b._sleeping = false;
+					b._sleeping.val = false;
 					b._sleepTime = 0;
 				});
 			}
@@ -141,7 +141,7 @@ class World {
 			_numSolversInIslands = 0;
 			M.list_foreach(b, _next, {
 				do {
-					if (b._addedToIsland || b._sleeping || b._type == RigidBodyType._STATIC) {
+					if (b._addedToIsland || b._sleeping.val || b._type == RigidBodyType._STATIC) {
 						// never be the base of an island
 						break;
 					}

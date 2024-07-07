@@ -111,8 +111,8 @@ class ContactManager {
 				var s2:Shape = c._s2;
 				var r1:RigidBody = s1._rigidBody;
 				var r2:RigidBody = s2._rigidBody;
-				var active1:Bool = !r1._sleeping && r1._type != RigidBodyType._STATIC;
-				var active2:Bool = !r2._sleeping && r2._type != RigidBodyType._STATIC;
+				var active1:Bool = !r1._sleeping.val && r1._type != RigidBodyType._STATIC;
+				var active2:Bool = !r2._sleeping.val && r2._type != RigidBodyType._STATIC;
 				if (!active1 && !active2) {
 					// skip the pair if both rigid bodies are inactive
 					c._shouldBeSkipped = true;

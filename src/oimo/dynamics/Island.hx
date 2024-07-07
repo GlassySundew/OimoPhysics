@@ -119,7 +119,7 @@ class Island {
 			rb._sleepTime = 0;
 		}
 
-		if (!rb._sleeping) {
+		if (!rb._sleeping.val) {
 			// the rigid body is awake
 			if (rb._type == RigidBodyType._DYNAMIC) {
 				// damping
@@ -173,7 +173,7 @@ class Island {
 			M.vec3_zero(rb._angularContactImpulse);
 
 			// don't let the rigid body sleep
-			rb._sleeping = false;
+			rb._sleeping.val = false;
 
 			// update sleep time
 			if (rb._isSleepy()) {

@@ -1,5 +1,7 @@
 package oimo.dynamics.rigidbody;
 
+import signals.Signal;
+import core.MutableProperty;
 import oimo.collision.geometry.*;
 import oimo.common.*;
 import oimo.dynamics.*;
@@ -38,7 +40,7 @@ class RigidBody {
 	public var _type:Int;
 
 	public var _sleepTime:Float;
-	public var _sleeping:Bool;
+	public var _sleeping : MutableProperty<Bool> = new MutableProperty( false );
 	public var _autoSleep:Bool;
 
 	public var _mass:Float;
@@ -71,6 +73,8 @@ class RigidBody {
 	public var _addedToIsland:Bool;
 	public var _gravityScale:Float;
 
+	public var onUpdated = new Signal();
+	
 	/**
 	 * Extra field that users can use for their own purposes.
 	 */
@@ -111,7 +115,7 @@ class RigidBody {
 		_type = config.type;
 
 		_sleepTime = 0;
-		_sleeping = false;
+		_sleeping.val = false;
 		_autoSleep = config.autoSleep;
 
 		_mass = 0;
@@ -178,6 +182,7 @@ class RigidBody {
 				M.vec3_zero(_pseudoVel);
 				M.vec3_zero(_angPseudoVel);
 		}
+		onUpdated.dispatch();
 	}
 
 	public function _integratePseudoVelocity():Void {
@@ -1041,7 +1046,7 @@ class RigidBody {
 	 * This also resets the sleeping timer of the rigid body.
 	 */
 	public inline function wakeUp():Void {
-		_sleeping = false;
+		_sleeping.val = false;
 		_sleepTime = 0;
 	}
 
@@ -1051,7 +1056,7 @@ class RigidBody {
 	 * This also resets the sleeping timer of the rigid body.
 	 */
 	public inline function sleep():Void {
-		_sleeping = true;
+		_sleeping.val = true;
 		_sleepTime = 0;
 	}
 
