@@ -20,7 +20,7 @@ class Transform {
 	/**
 	 * Creates a new identical transform.
 	 */
-	public function new() {
+	public inline function new() {
 		M.vec3_zero(_position);
 		M.mat3_id(_rotation);
 	}

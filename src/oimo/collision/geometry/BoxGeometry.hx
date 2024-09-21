@@ -21,10 +21,7 @@ class BoxGeometry extends ConvexGeometry {
 	 */
 	public function new(halfExtents:Vec3) {
 		super(GeometryType._BOX);
-		M.vec3_fromVec3(_halfExtents, halfExtents);
-		M.vec3_set(_halfAxisX, halfExtents.x, 0, 0);
-		M.vec3_set(_halfAxisY, 0, halfExtents.y, 0);
-		M.vec3_set(_halfAxisZ, 0, 0, halfExtents.z);
+		setSize(halfExtents);
 		_updateMass();
 
 		var minHalfExtents:Float =
@@ -44,6 +41,13 @@ class BoxGeometry extends ConvexGeometry {
 		;
 
 		if (_gjkMargin > minHalfExtents * 0.2) _gjkMargin = minHalfExtents * 0.2;
+	}
+
+	public inline function setSize(halfExtents:Vec3) {
+		M.vec3_fromVec3(_halfExtents, halfExtents);
+		M.vec3_set(_halfAxisX, halfExtents.x, 0, 0);
+		M.vec3_set(_halfAxisY, 0, halfExtents.y, 0);
+		M.vec3_set(_halfAxisZ, 0, 0, halfExtents.z);
 	}
 
 	/**

@@ -179,7 +179,11 @@ class Contact {
 		var num:Int = result.numPoints;
 		_touching = num > 0;
 
-		if (_touching) {
+		if (
+			_touching 
+			&& _s1._rigidBody._type != RigidBodyType.CASTED
+			&& _s2._rigidBody._type != RigidBodyType.CASTED
+		) {
 			// update manifold basis
 			_manifold._buildBasis(result.normal);
 

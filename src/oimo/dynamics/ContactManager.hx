@@ -142,7 +142,31 @@ class ContactManager {
 			return false;
 		}
 
-		if (r1._type != RigidBodyType._DYNAMIC && r2._type != RigidBodyType._DYNAMIC) {
+		// if (
+		// 	(
+		// 		r1._type != RigidBodyType._DYNAMIC && r2._type != RigidBodyType._DYNAMIC
+		// 	) && !(
+		// 		// only one is CASTED
+		// 		(
+		// 			r1._type == RigidBodyType._CASTED || r2._type == RigidBodyType._CASTED
+		// 		) && !(
+		// 			r1._type == RigidBodyType._CASTED && r2._type == RigidBodyType._CASTED
+		// 		)
+		// 	)
+		// ) {
+		
+		if (
+			(
+				r1._type != RigidBodyType._DYNAMIC && r2._type != RigidBodyType._DYNAMIC
+			) && !(
+				// only one is CASTED
+				(
+					r1._type == RigidBodyType._CASTED || r2._type == RigidBodyType._CASTED
+				) && !(
+					r1._type == RigidBodyType._CASTED && r2._type == RigidBodyType._CASTED
+				)
+			)
+		) {
 			// none of the two bodies are dynamic
 			return false;
 		}

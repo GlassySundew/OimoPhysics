@@ -7,7 +7,8 @@ package oimo.dynamics.rigidbody;
 class RigidBodyType {
 	public static inline var _DYNAMIC = 0;
 	public static inline var _STATIC = 1;
-	public static inline var _KINEMATIC = 2;
+	public static inline var _CASTED = 2;
+	public static inline var _KINEMATIC = 3;
 
 	/**
 	 * Represents a dynamic rigid body. A dynamic rigid body has finite mass (and usually inertia
@@ -28,4 +29,6 @@ class RigidBodyType {
 	 * bodies to pre-computed motions.
 	 */
 	public static var KINEMATIC(default, never) = _KINEMATIC;
+
+	public static var CASTED(default, never) = _CASTED;
 }
