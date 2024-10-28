@@ -146,11 +146,11 @@ class ContactManager {
 		// 	(
 		// 		r1._type != RigidBodyType._DYNAMIC && r2._type != RigidBodyType._DYNAMIC
 		// 	) && !(
-		// 		// only one is CASTED
+		// 		// only one is TRIGGER
 		// 		(
-		// 			r1._type == RigidBodyType._CASTED || r2._type == RigidBodyType._CASTED
+		// 			r1._type == RigidBodyType._TRIGGER || r2._type == RigidBodyType._TRIGGER
 		// 		) && !(
-		// 			r1._type == RigidBodyType._CASTED && r2._type == RigidBodyType._CASTED
+		// 			r1._type == RigidBodyType._TRIGGER && r2._type == RigidBodyType._TRIGGER
 		// 		)
 		// 	)
 		// ) {
@@ -158,14 +158,25 @@ class ContactManager {
 		if (
 			(
 				r1._type != RigidBodyType._DYNAMIC && r2._type != RigidBodyType._DYNAMIC
-			) && !(
-				// only one is CASTED
-				(
-					r1._type == RigidBodyType._CASTED || r2._type == RigidBodyType._CASTED
-				) && !(
-					r1._type == RigidBodyType._CASTED && r2._type == RigidBodyType._CASTED
+			) 
+				&& !(
+					// и они оба не триггеры
+					r1._type == RigidBodyType._TRIGGER && r2._type == RigidBodyType._TRIGGER
+					// (
+					// 	r1._type == RigidBodyType._TRIGGER || r2._type == RigidBodyType._TRIGGER
+					// ) && !(
+					// 	r1._type == RigidBodyType._TRIGGER && r2._type == RigidBodyType._TRIGGER
+					// )
 				)
-			)
+				
+			// && !(
+			// 	// only one is TRIGGER
+			// 	(
+			// 		r1._type == RigidBodyType._TRIGGER || r2._type == RigidBodyType._TRIGGER
+			// 	) && !(
+			// 		r1._type == RigidBodyType._TRIGGER && r2._type == RigidBodyType._TRIGGER
+			// 	)
+			// )
 		) {
 			// none of the two bodies are dynamic
 			return false;

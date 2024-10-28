@@ -7,7 +7,7 @@ package oimo.dynamics.rigidbody;
 class RigidBodyType {
 	public static inline var _DYNAMIC = 0;
 	public static inline var _STATIC = 1;
-	public static inline var _CASTED = 2;
+	public static inline var _TRIGGER = 2;
 	public static inline var _KINEMATIC = 3;
 
 	/**
@@ -30,5 +30,5 @@ class RigidBodyType {
 	 */
 	public static var KINEMATIC(default, never) = _KINEMATIC;
 
-	public static var CASTED(default, never) = _CASTED;
+	public static var TRIGGER(default, never) = _TRIGGER;
 }

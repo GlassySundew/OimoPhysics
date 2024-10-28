@@ -176,7 +176,7 @@ class RigidBody {
 				M.call(_applyTranslation(translation));
 				M.call(_applyRotation(rotation));
 
-			case RigidBodyType._STATIC | RigidBodyType._CASTED:
+			case RigidBodyType._STATIC | RigidBodyType._TRIGGER:
 				M.vec3_zero(_vel);
 				M.vec3_zero(_angVel);
 				M.vec3_zero(_pseudoVel);
@@ -206,7 +206,7 @@ class RigidBody {
 				// update the transform
 				M.call(_applyTranslation(translation));
 				M.call(_applyRotation(rotation));
-			case RigidBodyType._STATIC | RigidBodyType._CASTED:
+			case RigidBodyType._STATIC | RigidBodyType._TRIGGER:
 				M.vec3_zero(_pseudoVel);
 				M.vec3_zero(_angPseudoVel);
 		}
@@ -638,7 +638,7 @@ class RigidBody {
 	 * Sets the linear velocity of the rigid body.
 	 */
 	public inline function setLinearVelocity(linearVelocity:Vec3):Void {
-		if (_type == RigidBodyType._STATIC || _type != RigidBodyType._CASTED) {
+		if (_type == RigidBodyType._STATIC || _type != RigidBodyType._TRIGGER) {
 			M.vec3_zero(_vel);
 		} else {
 			M.vec3_fromVec3(_vel, linearVelocity);
@@ -668,7 +668,7 @@ class RigidBody {
 	 * Sets the angular velocity of the rigid body.
 	 */
 	public inline function setAngularVelocity(angularVelocity:Vec3):Void {
-		if (_type == RigidBodyType._STATIC || _type == RigidBodyType._CASTED) {
+		if (_type == RigidBodyType._STATIC || _type == RigidBodyType._TRIGGER) {
 			M.vec3_zero(_angVel);
 		} else {
 			M.vec3_fromVec3(_angVel, angularVelocity);
@@ -680,7 +680,7 @@ class RigidBody {
 	 * Adds `linearVelocityChange` to the linear velcity of the rigid body.
 	 */
 	public inline function addLinearVelocity(linearVelocityChange:Vec3):Void {
-		if (_type != RigidBodyType._STATIC && _type != RigidBodyType._CASTED) {
+		if (_type != RigidBodyType._STATIC && _type != RigidBodyType._TRIGGER) {
 			var d:IVec3;
 			M.vec3_fromVec3(d, linearVelocityChange);
 			M.vec3_add(_vel, _vel, d);
@@ -692,7 +692,7 @@ class RigidBody {
 	 * Adds `angularVelocityChange` to the angular velcity of the rigid body.
 	 */
 	public inline function addAngularVelocity(angularVelocityChange:Vec3):Void {
-		if (_type != RigidBodyType._STATIC && _type != RigidBodyType._CASTED) {
+		if (_type != RigidBodyType._STATIC && _type != RigidBodyType._TRIGGER) {
 			var d:IVec3;
 			M.vec3_fromVec3(d, angularVelocityChange);
 			M.vec3_add(_angVel, _angVel, d);

@@ -13,6 +13,7 @@ class DebugDrawStyle {
 	public var sleepingShapeColor2:Vec3 = new Vec3(0.2, 0.8, 0.5);
 	public var staticShapeColor:Vec3 = new Vec3(0.7, 0.7, 0.7);
 	public var kinematicShapeColor:Vec3 = new Vec3(1.0, 0.5, 0.1);
+	public var triggerShapeColor:Vec3 = new Vec3(0.552, 0.121, 1);
 
 	public var aabbColor:Vec3 = new Vec3(1.0, 0.1, 0.1);
 	public var bvhNodeColor:Vec3 = new Vec3(0.4, 0.4, 0.4);

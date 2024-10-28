@@ -181,8 +181,8 @@ class Contact {
 
 		if (
 			_touching 
-			&& _s1._rigidBody._type != RigidBodyType.CASTED
-			&& _s2._rigidBody._type != RigidBodyType.CASTED
+			&& _s1._rigidBody._type != RigidBodyType.TRIGGER
+			&& _s2._rigidBody._type != RigidBodyType.TRIGGER
 		) {
 			// update manifold basis
 			_manifold._buildBasis(result.normal);

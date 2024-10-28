@@ -306,10 +306,13 @@ class World {
 				_drawBasis(d, r._transform);
 			}
 			var shapeColor:Vec3 = null;
-			var isDynamic:Bool = r._type == RigidBodyType._DYNAMIC;
-			if (!isDynamic) {
-				shapeColor = r._type == RigidBodyType._KINEMATIC ? style.kinematicShapeColor : style.staticShapeColor;
+			shapeColor = switch r._type {
+				case RigidBodyType._STATIC: style.staticShapeColor;
+				case RigidBodyType._TRIGGER: style.triggerShapeColor;
+				case RigidBodyType._KINEMATIC: style.kinematicShapeColor;
+				default: null;
 			}
+			var isDynamic:Bool = r._type == RigidBodyType._DYNAMIC;
 			var s:Shape = r._shapeList;
 			M.list_foreach(s, _next, {
 				if (isDynamic) {
